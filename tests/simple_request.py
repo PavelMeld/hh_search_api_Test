@@ -48,7 +48,7 @@ class hh_vacancies_simple_request_test(template.http_template):
 		responseJson = json.loads(responseBody);
 		count = len(responseJson["items"]);
 		for item in responseJson["items"]:
-			if re.search(self.request_text, item["name"], re.I | re.U) == None: 
+			if re.search(self.request_text, item["name"], re.I | re.U) != None: 
 				return self.success();
 
 		return self.fail("At least one item must contain '" +self.request_text+"'");
