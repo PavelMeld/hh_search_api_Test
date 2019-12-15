@@ -1,9 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from tests import empty_request
-from tests import long_request
-from tests import simple_request
-from http.client import *
+import sys
+
+sys.path.append('./tests');
+
+import	empty_request
+import	long_request
+import	simple_request
+from	http.client import *
 
 
 

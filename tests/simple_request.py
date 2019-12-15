@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import http.client 
-from tests import template
+import template
 from urllib.parse import urlencode
 import json
 import re

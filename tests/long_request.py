@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import http.client 
 from urllib.parse import urlencode
-from tests import template
+import template
 
 ################################################################################
 #
