@@ -15,7 +15,7 @@
 Выполняется простой запрос, с заданным значением поля `text` и полем `search_field="name"` для сужения области теста.
 Ответ должен содержать хотя бы одну запись `items`, в которой поле `name` содержит исхомое значение.
 
-|Test-case| Request | Response1 |
+|Test-case| Request | Response |
 |--|--|--|
 | Cyrillic | text="Программист" & search_field="name" |items[_i_].`name` содержит текст "Программист"|
 | Latin | text="Programmer" & search_field="name" |items[_i_].`name` содержит текст "Programmer"|
@@ -30,3 +30,24 @@
 | large+1k | text= 32k x 'a' |`HTTP 200(OK)` or `414(URI TOO LONG)`|
 | huge | text= 50k x 'a' |`HTTP 200(OK)` or `414(URI TOO LONG)`|
 | ddos | text= 100k x 'a' |`HTTP 200(OK)` or `414(URI TOO LONG)`|
+
+#### Негативный тест
+Формируется запрос, для которого заранее известно, что ответ должен быть пустым. Ожидается, что в ответ будет получен пустой список ответов.
+
+|Test-case| Request | Response |
+|--|--|--|
+|Несуществующий текст|text="flkfjwelfkjwflwk" & search_field="name" | len(items[_i_]) == 0|
+
+#### Проверка языка запросов
+
+|Test-case| Request | Response|
+|--|--|--|
+|wildcard-test|text="Менедж*" & search_field="name" | items[_i_].name == Менеджер|
+
+
+#### Проверка SQL инъекций
+Поисковой движок должен экранировать либо удалять все спецсимволы.
+
+|Test-case| Request | Response |
+|--|--|--|
+|Single-quote | text="Programmer **'** " & search_field="name" | items[_i_].name == Programmer|
